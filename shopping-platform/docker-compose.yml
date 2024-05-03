@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  authentication:
+    build: ./authentication_service
+    ports:
+      - "8000:8000"
+
+  product_catalog:
+    build: ./product_catalog_service
+    ports:
+      - "8001:8001"
+
+  order_processing:
+    build: ./order_processing_service
+    ports:
+      - "8002:8002"

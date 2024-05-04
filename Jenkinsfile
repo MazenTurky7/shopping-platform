@@ -2,13 +2,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Build Docker Images') {
+        stage('Build and Test') {
             steps {
                 script {
-                    // Build Docker images for each service
+                    // Build Docker images and run tests for each service
                     docker.build("authentication-service")
+                    // Run unit tests for authentication service
+                    sh "docker run authentication-service pytest"
+
                     docker.build("product-catalog-service")
+                    // Run unit tests for product catalog service
+                    sh "docker run product-catalog-service pytest"
+
                     docker.build("order-processing-service")
+                    // Run unit tests for order processing service
+                    sh "docker run order-processing-service pytest"
                 }
             }
         }
@@ -47,6 +55,12 @@ pipeline {
                 docker.image("product-catalog-service").remove()
                 docker.image("order-processing-service").remove()
             }
+        }
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }

@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  authentication_service:
+    build: ./authentication_service
+    ports:
+      - "8005:8005"
+    environment:
+      - PRODUCT_CATALOG_URL=http://product_catalog_service:8006  # Dynamic URL
+    depends_on:
+      - product_catalog_service
+
+  product_catalog_service:
+    build: ./product_catalog_service
+    ports:
+      - "8006:8006"
+    environment:
+      - ORDER_PROCESSING_URL=http://localhost:8007  # Static URL
+
+  order_processing_service:
+    build: ./order_processing_service
+    ports:
+      - "8007:8007"

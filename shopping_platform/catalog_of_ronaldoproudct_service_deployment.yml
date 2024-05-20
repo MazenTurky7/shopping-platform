@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-of-ronaldoproudct-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: catalog-of-ronaldoproudct
+  template:
+    metadata:
+      labels:
+        app: catalog-of-ronaldoproudct
+    spec:
+      containers:
+      - name: catalog-of-ronaldoproudct
+        image: mazenturky/catalog-of-ronaldoproudct-service:latest
+        ports:
+        - containerPort: 8006

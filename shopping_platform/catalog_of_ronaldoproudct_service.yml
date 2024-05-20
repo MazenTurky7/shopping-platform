@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog-of-ronaldoproudct-service
+spec:
+  selector:
+    app: catalog-of-ronaldoproudct
+  ports:
+    - protocol: TCP
+      port: 8006
+      targetPort: 8006

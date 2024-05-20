@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lets-order-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lets-order
+  template:
+    metadata:
+      labels:
+        app: lets-order
+    spec:
+      containers:
+      - name: lets-order
+        image: mazenturky/lets-order-service:latest
+        ports:
+        - containerPort: 8007

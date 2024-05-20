@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  user_login_signup_service:
+    build: ./user_login_signup_service
+    ports:
+      - "8005:8005"
+    environment:
+      - PRODUCT_CATALOG_URL=http://catalog_of_ronaldoproudct_service:8006  # Dynamic URL
+    depends_on:
+      - catalog_of_ronaldoproudct_service
+    links:
+      - catalog_of_ronaldoproudct_service
+
+  catalog_of_ronaldoproudct_service:
+    build: ./catalog_of_ronaldoproudct_service
+    ports:
+      - "8006:8006"
+    environment:
+      - ORDER_PROCESSING_URL=http://lets_order_service:8007  # Dynamic URL
+    links:
+      - lets_order_service
+
+  lets_order_service:
+    build: ./lets_order_service
+    ports:
+      - "8007:8007"

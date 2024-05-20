@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-login-signup-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: user-login-signup
+  template:
+    metadata:
+      labels:
+        app: user-login-signup
+    spec:
+      containers:
+      - name: user-login-signup
+        image: mazenturky/user-login-signup-service:latest
+        ports:
+        - containerPort: 8005
